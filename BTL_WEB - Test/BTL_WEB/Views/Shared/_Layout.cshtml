@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @*<title>Mobilestore Website Template | Home :: W3layouts</title>*@
+    @Styles.Render("~/Content/css/style.css")
+    @*<link href="/Content/css/style.css" rel="stylesheet" type="text/css" media="all" />*@
+    @*<meta name="keywords" content="Mobilestore iphone web template, Android web template, Smartphone web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />*@
+    @Styles.Render("~/Content/css/css.css")
+    @*<link href='//fonts.googleapis.com/css?family=Londrina+Solid|Coda+Caption:800|Open+Sans' rel='stylesheet' type='text/css'>*@
+    @Styles.Render("~/Content/css/responsiveslides.css")
+    @*<link rel="stylesheet" href="/Content/css/responsiveslides.css">*@
+    @Styles.Render("~/Content/css/price-range.css")
+    @Scripts.Render("~/Content/js/jquery.min.js")
+    @*<script src="/Content/js/jquery.min.js"></script>*@
+    @Scripts.Render("~/Content/js/responsiveslides.min.js")
+    @*<script src="/Content/js/responsiveslides.min.js"></script>*@
+    @Scripts.Render("~/Content/js/jquery.flexslider.js")
+    @Scripts.Render("~/Content/js/jquery.livequery.js")
+    @Styles.Render("~/Content/css/flexslider.css")
+    @*<link rel="stylesheet" href="/Content/css/flexslider.css" type="text/css" media="screen" />*@
+    @Scripts.Render("~/Content/js/imagezoom.js")
+    @*<script src="/Content/js/imagezoom.js"></script>*@
+    @Scripts.Render("~/Content/js/price-range.js")
+    <!-- FlexSlider -->
+    <script defer src="/Content/js/jquery.flexslider.js"></script>
+</head>
+<body>
+    <nav style="background-color:#94CB32" class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/Home/Index"><img style="height:20px;width:20px;" src="~/Content/images/download.jpg" title="logo"/></a>
+            </div>
+
+            <div class="">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Store", "Store", "Home")</li>
+                    <li>@Html.ActionLink("Featured", "Store", "Home")</li>
+                    <li>@Html.ActionLink("Blog", "Blog", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+            </div>
+            
+            <form method="get" action="/Search/NameSearch" class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input style="width:800px;" type="text" class="form-control" placeholder="Search" name="txtString">
+                </div>
+                <button type="submit" class="btn btn-default"><img src="~/Content/images/icons8_search_16.png"></button>
+            </form>
+        </div>
+
+        <div style="display:inline-flex" class="navbar-right">
+            @if (Session["userLogin"] == null)
+            {
+                <a style="margin-right:10px;" href="/admin/Login/Index" class="btn btn-info navbar-btn">Đăng ký</a>
+                <a style="margin-right:50px;" href="/admin/Login/Index" class="btn btn-warning navbar-btn">Đăng nhập</a>
+            }
+            else
+            {
+                <div class="dropdown">
+                    <button style="height:40px;margin-right:50px; background-color:transparent;width:150px;margin-top:6px;" class="dropdown-toggle" data-toggle="dropdown">
+                        @Session["userLogin"]
+                    </button>
+                    <div class="dropdown-menu">
+                        <li><a href="/Home/Information" class="dropdown-item">Thông tin cá nhân</a></li>
+                        <li><a href="" class="dropdown-item">Theo dõi đơn hàng</a></li>
+                        <li><a href="/Home/LogOutUser" class="dropdown-item">Đăng xuất</a></li>
+                    </div>
+                </div>
+
+
+                <a href="/GioHang/Index">
+                    <img style="position:relative;right:15px;width:50px;height:50px" src="~/Content/images/shopping-circle-green-512.png" />
+                </a>
+            }         
+</div>
+    </nav>
+
+  
+
+            @*<div class="clear"> </div>*@
+        @*</div>
+    </div>*@
+    <!----End-top-nav---->
+    <!----End-Header---->
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <div class="footer">
+        <div class="wrap">
+            <div class="section group">
+                <div class="col_1_of_4 span_1_of_4">
+                    <h3>Our Info</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+                <div class="col_1_of_4 span_1_of_4">
+                    <h3>Latest-News</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </div>
+                <div class="col_1_of_4 span_1_of_4">
+                    <h3>Store Location</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <h3>Order-online</h3>
+                    <p>080-1234-56789</p>
+                    <p>080-1234-56780</p>
+                </div>
+                <div class="col_1_of_4 span_1_of_4 footer-lastgrid">
+                    <h3>News-Letter</h3>
+                    <form>
+                        <input type="text"><input type="submit" value="go" />
+                    </form>
+                    <h3>Follow Us:</h3>
+                    <ul>
+                        <li><a href="#"><img src="/Content/images/twitter.png" title="twitter" />Twitter</a></li>
+                        <li><a href="#"><img src="/Content/images/facebook.png" title="Facebook" />Facebook</a></li>
+                        <li><a href="#"><img src="/Content/images/rss.png" title="Rss" />Rss</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="clear"> </div>
+        <div class="wrap">
+            <div class="copy-right">
+                <p>&copy; 2013 Mobile Store. All Rights Reserved | Design by  <a href="http://w3layouts.com/">W3Layouts</a></p>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

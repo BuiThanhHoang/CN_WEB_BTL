@@ -1,0 +1,68 @@
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #fff;
+    background: url("image/logo-Apple.jpg");
+    background-size: cover;
+}
+.signup{
+    background: rgba(38, 85, 107, 0.7);
+    padding: 40px;
+    width: 250px;
+    height: 430px;
+    /*margin-top: 90px;*/
+    margin-left: 180px;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+form{
+    width: 240px;
+    text-align: center;
+}
+input{
+    width: 240px;
+    text-align: center;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    font-family: 'Play',sans-serif;
+    font-size: 16px;
+    font-weight: 200px;
+    padding: 10px 0;
+    transition: border 0.5s;
+    outline: none;
+    color: #fff;
+}
+input[type=button]{
+    border: none;
+    width: 190px;
+    background:#fff;
+    color: #000;
+    font-size: 16px;
+    line-height: 25px;
+    padding: 10px 0;
+    border-radius: 15px;
+    cursor: pointer;
+    position: relative;
+    left:5px;
+}
+input[type=button]:hover{
+    color: #fff;
+    background-color: #000;
+}
+h2{
+    margin-top: 15px;
+    margin-left: 10px;
+    color:#000;
+}
+::placeholder {
+    color: aliceblue;
+    opacity: 0.5;
+}
+.haveAccount{
+    text-decoration: none;
+    font-family:'Play',sans-serif;
+    color:yellow
+}
+.haveAccount:hover{
+    color: skyblue;
+}

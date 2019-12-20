@@ -1,0 +1,142 @@
+﻿@using BTL_WEB.Models.Functions;
+@using BTL_WEB.Models.Entities;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Home Page";
+    int i = 0;
+    Func_SanPham sp = new Func_SanPham();
+    tbl_taikhoan user = ViewBag.user;
+}
+
+
+@model PagedList.IPagedList<tbl_sanpham>
+
+    <!--
+    Author: W3layouts
+    Author URL: http://w3layouts.com
+    License: Creative Commons Attribution 3.0 Unported
+    License URL: http://creativecommons.org/licenses/by/3.0/
+    -->
+
+<body>
+
+    <script src="~/Content/js/jsgiohang.js"></script>
+    <script>
+        // You can also use "$(window).load(function() {"
+        $(function () {
+
+            // Slideshow 1
+            $("#slider1").responsiveSlides({
+                maxwidth: 1600,
+                speed: 1000
+            });
+        });
+    </script>
+    <!--start-image-slider---->
+    <div class="wrap">
+        <div id="slider">
+            <!--slider-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#slider-carousel" data-slide-to="1"></li>
+                                <li data-target="#slider-carousel" data-slide-to="2"></li>
+                                <li data-target="#slider-carousel" data-slide-to="3"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <div class="col-sm-12">
+                                        <a href="#">
+                                            <img src="~/Content/imgs_slider/slider1.jpg" class="girl img-responsive" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="col-sm-12">
+                                        <a href="#">
+                                            <img src="~/Content/imgs_slider/slider2.jpg" class="girl img-responsive" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="col-sm-12">
+                                        <a href="#">
+                                            <img src="~/Content/imgs_slider/slider3.jpg" class="girl img-responsive" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="col-sm-12">
+                                        <a href="#">
+                                            <img src="~/Content/imgs_slider/slider4.jpg" class="girl img-responsive" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/slider-->
+        <!--End-image-slider---->
+    </div>
+    <div class="clear"> </div>
+    <div class="wrap">
+        <div class="content">
+            <div class="content-grids">
+                <h4>Deals of the day</h4>
+                <div class="section group">
+                    @foreach (tbl_sanpham it in Model)
+                    {
+                        if (it.tinhtrang == -1)
+                        {
+                            continue;
+                        }
+
+                        var get_link = @sp.getImg(it.id);
+                        var link = "";
+                        if (get_link.Count > 0) link = get_link[0];
+
+                        <div class="grid_1_of_4 images_1_of_4">
+                            <a href="/Home/Show?sanpham=@it.id"><img src="/Content/images/@link" alt="" /></a>
+                            <h2>@it.ten </h2>
+                            <div class="price-details">
+                                <div class="price-number">
+                                    <p><span class="rupees" style="font-size: 0.75cm; color: #FF4000;">Giá: @(it.gia.GetValueOrDefault() > 0 ? it.gia.Value.ToString("N0") + " Đ" : "Liên Hệ")</span></p>
+                                </div>
+                                <div class="add-cart">
+                                    @if (user != null)
+                                    {
+                                        @*<h4><a href="" onclick="addgiohang(@it.id, @user.id)">Thêm vào giỏ hàng</a></h4>*@
+                                       
+                                        <button onclick="addgiohang(@it.id, @user.id)" style=" width:40px;height:40px; position:relative ;left:0px;border-radius:50%;background-image:url(/Content/images/shopping-circle-green-512.png);background-size:cover;" type="button" class="btn btn-success" ></button>
+                                    }
+
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        i++;
+                    }
+
+                </div>
+
+            </div>
+            @Html.Partial("_MyPartial")
+        </div>
+        <div class="clear"> </div>
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+
+</body>

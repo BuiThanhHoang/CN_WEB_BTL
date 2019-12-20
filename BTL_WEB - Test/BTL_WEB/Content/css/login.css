@@ -1,0 +1,91 @@
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #fff;
+    background: url("/Content/images/logo-Apple.jpg");
+    background-size: cover;
+}
+.signin {
+    background: rgba(38, 85, 107, 0.7);
+    padding: 150px;
+    width: 600px;
+    margin-left: 180px;
+    margin: auto;
+    margin-top: 80px;
+    height: 800px;
+    
+    /*margin-left: 470px;*/
+}
+form {
+    width: 300px;
+    text-align: center;
+}
+input{
+    width: 250px;
+    text-align: center;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    font-family: 'Play',sans-serif;
+    font-size: 16px;
+    font-weight: 200px;
+    padding: 10px 0;
+    transition: border 0.5s;
+    outline: none;
+    color: #fff;
+}
+input[type=button]{
+    border: none;
+    width: 190px;
+    background:#fff;
+    color: #000;
+    font-size: 16px;
+    line-height: 25px;
+    padding: 10px 0;
+    border-radius: 15px;
+    cursor: pointer;
+    position: relative;
+    left:5px;
+}
+input[type=button]:hover{
+    color: #fff;
+    background-color: #000;
+}
+h2{
+    margin-top: 15px;
+    margin-left: 10px;
+    color:#fff;
+}
+a{
+    color:gold;
+    text-decoration: blink;
+}
+a:hover{
+    color:skyblue;
+}
+.container
+{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.container a{
+    flex: 1;
+}
+::placeholder {
+    color: aliceblue;
+    opacity: 0.5;
+}
+.Edit{
+    background:white;
+    border-radius:50px;
+    height:40px;
+    width:120px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size:medium;
+}
+
+.inputedit {
+    background-color: #5F9EA0;
+    border-color: black;
+    color: #fff;
+}

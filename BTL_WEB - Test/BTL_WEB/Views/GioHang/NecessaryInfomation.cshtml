@@ -1,0 +1,89 @@
+﻿@using BTL_WEB.Models.Entities;
+@using BTL_WEB.Models.Functions;
+@using BTL_WEB.Code;
+
+@{
+    var ttcn = ViewBag.user;
+    var iduser = ViewBag.idBook;
+    Func_SanPham layanh = new Func_SanPham();
+    Func_ChiTietDonHang chitiet = new Func_ChiTietDonHang();
+    List<tbl_chitietdonhang> danhsachDonHang = chitiet.getSanPhamGioHang(iduser);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>NecessaryInfomation</title>
+     
+    <script>
+        function Myfunction() {
+            alert("Đặt hàng thành công.Bộ phận sẽ liên hệ và xác nhận với quý khách.")
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var now = new Date();
+            var month = (now.getMonth() + 1);
+            var day = now.getDate();
+            if (month < 10)
+                month = "0" + month;
+            if (day < 10)
+                day = "0" + day;
+            var today = now.getFullYear() + '-' + month + '-' + day;
+            $('#MyDay').val(today);
+        });
+    </script>
+
+    <script src="~/Content/js/jsgiohang.js"></script>
+</head>
+<body>
+    @{ 
+        var stt = 0;
+        var tongtientronggio = 0;
+    }
+    <div>
+
+    
+        @foreach (tbl_chitietdonhang chitiethang in danhsachDonHang)
+        {
+            stt += 1;
+            tbl_sanpham sp = layanh.FindEntity(chitiethang.id);
+            int tongtien = (int)chitiethang.soluong * (int)sp.gia;
+            tongtientronggio = tongtientronggio + tongtien;
+            <img src="~/Content/images/@layanh.getImg(sp.id)[0]"/>
+            <br />
+            <input type="text" name="idsp" value="@sp.id"/>
+            <h4>@sp.ten</h4>
+            <h4>@chitiethang.soluong</h4>
+            <h4>@tongtien.ToString("0,##")</h4>
+        }
+        <br />
+        <br />
+
+        <p>Tổng tiền trong giỏ hàng là:  </p>
+        <input type="text" name="giatien" value="@tongtientronggio.ToString("0,##")"/>
+        <br />
+        
+
+        <form action="/GioHang/DonHang" method="post">
+
+
+            <input style="width:350px;height:30px;margin-left:100px;" type="email" id="MyEmail" name="email" value="@ttcn.email" />
+            <br />
+            <input style="width:350px;height:30px;margin-left:100px;" type="text" id="MyName" name="ten" value="@ttcn.ten" />
+            <br />
+            <input style="width:350px;height:30px;margin-left:100px;" type="text" id="MyPhone" name="sdt" value="@ttcn.sdt" />
+            <br />
+            <input style="width:350px;height:30px;margin-left:100px;" type="date" id="MyDay" name="ngaymua" />
+            <br />
+            <input style="width:350px;height:30px;margin-left:100px;" type="text" id="MyAdress" name="diachigiaohang" placeholder="Địa chỉ giao hàng" />
+            <br />
+
+            <button type="submit" onclick="Myfunction()">Đặt hàng</button>
+        </form>
+    </div>
+</body>
+</html>

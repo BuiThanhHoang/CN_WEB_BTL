@@ -1,0 +1,109 @@
+﻿@using BTL_WEB.Models.Entities
+@using BTL_WEB.Models.Functions
+@{ 
+    var list = new Func_SanPham().DS_SanPham.ToList();
+    var nhasanxuat = new Func_nhasanxuat();
+    var sanpham = new Func_SanPham();
+}
+<!--  page-wrapper -->
+<div id="page-wrapper">
+
+
+    <div class="row">
+        <!--  page header -->
+        <div class="col-lg-12">
+            <h1 class="page-header">Tables</h1>
+        </div>
+        <!-- end  page header -->
+    </div>
+
+    <div>
+        <!-- Modal-->
+        @{
+            Html.RenderPartial("EditModal");
+            Html.RenderPartial("ShowModal");
+        }
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Advanced Tables -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                   <button type="button" class="btn btn-success btn-lg" onclick="location.href='Add';"><i class="glyphicon  glyphicon-new-window"></i> Thêm sản phẩm</button>
+                </div>
+
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-fit table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                                
+                                <tr>
+                                    <th class="center" width="10">STT</th>
+                                    <th width="20">ID SP</th>
+                                    <th width="50">Nhà sản xuất</th>
+                                    <th>Tên sản phâm</th>
+                                    <th>Giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Ảnh</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                              
+                                @{var stt = 1;}
+                                @foreach (tbl_sanpham sp in list)
+                                {
+                                    var mau = "#80FF00";
+                                    if (sp.tinhtrang == -1)
+                                    {
+                                        mau = "#FF0000";
+                                    }
+
+                                    <tr class="odd gradeX" id="idcolor_@sp.id" bgcolor="@mau" >
+                                        @{
+                                            
+                                          }
+                                        <td class="center">@stt</td>@{stt++;
+                                        }
+                                       
+                                            <td>@sp.id</td>
+                                            <td id="hiennhasanxuat_@sp.id">@nhasanxuat.getname_nhasanxuat((int)(@sp.id_nsx)) </td>
+                                            <td id="hienten_@sp.id"> @sp.ten</td>
+                                            <td id="hiengia_@sp.id">@sp.gia</td>
+                                            <td id="hiensoluong_@sp.id">@sp.soluong</td>
+                                            @{ 
+                                                var get_link = @sanpham.getImg(@sp.id);
+                                                var link = "";
+                                                if (get_link.Count > 0) link = get_link[0];
+                                            }
+                                            <td><img src="~/Content/images/@link" width="50" height="50"></td>
+
+                                            <td>
+                                                <div class="container-fluid">
+                                                    @{
+                                                        var id_row = "idcolor_" + (sp.id).ToString();
+                                                    }
+                                                    <button style="background-image: url(/Content/assets/img/show.png); height:30px; width:30px; background-repeat: no-repeat, repeat;background-size: cover;" class="showproduct" type="button" data-toggle="modal" data-id=@sp.id data-target="#show-product-modal"></button>
+                                                    <button style="background-image: url(/Content/assets/img/edit.png); height:30px; width:30px; background-repeat: no-repeat, repeat;background-size: cover;" class="editproduct" type="button" data-toggle="modal" data-id=@sp.id data-target="#edit-product-modal"></button>
+                                                    <button style="background-image: url(/Content/assets/img/delete.png); height:30px; width:30px; background-repeat: no-repeat, repeat;background-size: cover;" class="deleteproduct" onclick="delete_product(@id_row, @sp.id);" id="@sp.id"  type="button"></button>
+                                                </div>
+                                            </td>
+                                  
+                                      </tr>
+
+
+                                }
+
+
+</tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <!--End Advanced Tables -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,144 @@
+﻿@using BTL_WEB.Models.Functions
+@using BTL_WEB.Models.Entities
+@using BTL_WEB.Code
+
+@{
+    Func_TaiKhoan inf = new Func_TaiKhoan();
+    tbl_thongtincanhan cn = new tbl_thongtincanhan();
+    var ttcn = ViewBag.user;
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Information</title>
+    <script>
+        function myFuntion() {
+            document.getElementById("myEmail").disabled = false;
+            document.getElementById("myPhone").disabled = false;
+            document.getElementById("myName").disabled = false;
+            document.getElementById("myDate").disabled = false;
+            document.getElementById("myAdress").disabled = false;
+        }
+
+        $(document).ready(function () {
+            $("#enterEdit").on("click", function () {
+                alert("Cập nhật thành công.");
+            });
+        });
+
+        $(document).ready(function () {
+            //$('input[type="submit"]').attr('disabled', 'disabled');
+            //$('input[type="text"]').change(function () {
+            //    if ($(this).val != '') {
+            //        $('input[type="submit"]').removeAttr('disabled');
+            //    }
+            //});
+            $("#enterEdit").prop("disabled", true);
+            });
+
+        $(document).ready(function () {
+            $("#edit").click(function () {
+                $("#enterEdit").prop("disabled", false);
+            });
+        });
+    </script>
+</head>
+
+<body
+    <div>
+        <div class="wrap">
+            <div class="wrap">
+                <div class="wrap">
+                    <div class="wrap">
+                        <div class="content-grids">
+                            <div style=";font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:50px;color:red" class="modal-header">
+                                Thông tin cá nhân
+                            </div>
+                            <div class="text-center">
+                                <img style="margin-top:20px;" src="~/Content/images/@ttcn.anhdaidien" class="img-circle" alt="Cinque Terre" width="100px" height="100">
+                            </div>
+                            <br />
+
+                            <form action="~/Home/SuaThongTin" method="post">
+                                <div style="margin-left:100px;" class="section group">
+                                    <div class="form-group row">
+                                        <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Email</label>
+                                        <div class="col-sm-12">
+                                            <input type="email" class="form-control form-control-sm" id="myEmail" name="email" value="@ttcn.email" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Số điện thoại</label>
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control form-control-sm" id="myPhone" name="sdt" value="@ttcn.sdt" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Họ và tên</label>
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control form-control-sm" id="myName" name="ten" value="@ttcn.ten" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Ngày sinh</label>
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control form-control-sm" id="myDate" name="ngaysinh" value="@ttcn.ngaysinh" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Địa chỉ</label>
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control form-control-sm" id="myAdress" name="diachi" value="@ttcn.diachi" disabled>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="form-check form-check-inline">
+                                        @if (ttcn.gioitinh == "Nam")
+                                        {
+                                            <input style="margin-left:200px;" class="form-check-input" type="radio" name="inlineRadioOptions" id="gioitinh" value="option1" checked>
+                                            <label class="form-check-label" for="inlineRadio1">Nam</label>
+                                            <input style="margin-left:30px;" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                            <label class="form-check-label" for="inlineRadio2">Nữ</label>
+                                        }
+                                        else
+                                        {
+                                            <input style="margin-left:200px;" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                            <label class="form-check-label" for="inlineRadio1">Nam</label>
+                                            <input style="margin-left:30px;" class="form-check-input" type="radio" name="inlineRadioOptions" id="gioitinh" value="option2" checked>
+                                            <label class="form-check-label" for="inlineRadio2">Nữ</label>
+                                        }
+                                    </div>
+
+                                    <div>
+                                        <button style="margin-left:325px; color:red;" type="button" class="btn btn-link" id="edit" onclick="myFuntion()">Cập nhật thông tin</button>
+                                        <br />
+                                        <div style="margin-left:180px;">
+                                            <input style="width:250px;" type="submit" class="btn btn-success" id="enterEdit"/>
+                                            @*<button style="width:250px;" type="" class="btn btn-success" onclick="location.href='@Url.Action("Information","Home")' ">Cập nhật</button>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                @Html.Partial("_MyPartial")
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="clear"></div>
+</body>
+</html>

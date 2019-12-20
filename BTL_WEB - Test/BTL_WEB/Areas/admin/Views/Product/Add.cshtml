@@ -1,0 +1,128 @@
+﻿@using BTL_WEB.Models.Entities
+@using BTL_WEB.Models.Functions
+@{
+    List<tbl_nhasanxuat> list_nxs = new Func_nhasanxuat().DS_NhaSanXuat.ToList();
+    var s = ViewBag.add;
+}
+<div id="page-wrapper">
+    @{
+        if (s != null)
+        {
+            if (s>0)
+            {
+                <script>
+                  alert("Thêm thành công!!");
+                </script>
+            }
+            else
+            {
+                <script>
+                    alert("Thêm thất bại!!");
+                </script>
+            }
+        }
+    }
+    <div class="row">
+    @using (Html.BeginForm("AddProduct", "Product", FormMethod.Post,
+                      new { enctype = "multipart/form-data" }))
+    {
+        <form action="~/admin/Product/AddProduct" method="POST">
+            <br/>
+            <br/>
+            <h2 style="text-align:center;color:#45ef0b;font-weight:bold" class="modal-title">
+               Thêm sản phẩm
+            </h2>
+            
+
+            <div class="form-group col-md-12">
+                <label>Tên sản phẩm</label>
+                <input name="tensp" type="text" class="form-control" placeholder="" />
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Giá sản phẩm</label>
+                <input name="giasp" type="text" class="form-control" placeholder="">
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Số lượng</label>
+                <input name="soluongsp" class="form-control" placeholder="">
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Trọng lượng</label>
+                <input name="trongluongsp" class="form-control" placeholder="">
+            </div>
+
+            <div class="form-group col-md-3">
+                <label>Rom</label>
+                <input name="romsp" class="form-control" placeholder="">
+            </div>
+
+            <div class="form-group col-md-3">
+                <label>Ram</label>
+                <input name="ramsp" class="form-control" placeholder="">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Thẻ nhớ</label>
+                <input name="thenhosp" class="form-control" placeholder="">
+            </div>
+
+            <div class="form-group col-md-3">
+                <label>Camera trước</label>
+                <input name="cameratruocsp" class="form-control" placeholder="">
+            </div>
+
+            <div class="form-group col-md-3">
+                <label>Camera sau</label>
+                <input name="camerasausp" class="form-control" placeholder="">
+            </div>
+
+            <div class="form-group col-md-3">
+                <label>Pin</label>
+                <input name="pinsp" class="form-control" placeholder="">
+            </div>
+
+            <div class="form-group col-md-3">
+                <label>Bluetooth</label>
+                <input name="bluetoothsp" class="form-control" placeholder="">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>CPU</label>
+                <input name="cpusp" class="form-control" placeholder="">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Màn hình</label>
+                <input name="manhinhsp" class="form-control" placeholder="">
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>Nhà sản xuất</label>
+                <select name="nhasanxuatsp" class="form-control">
+                    @foreach (tbl_nhasanxuat nsx in list_nxs)
+                    {
+                        <option value="@nsx.id">@nsx.ten</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>Thời gian bảo hành</label>
+                <input name="thoigianbaohanhsp" class="form-control" placeholder="">
+            </div>
+            <div class="form-group col-md-12">
+                <label>Ảnh</label>
+                <input name="imgsp" type="file">
+            </div>
+            <div>
+                <input style="margin-right: 33px; width:150px;" type="submit" value="Thêm sản phẩm " class="btn btn-success">
+            </div>
+         
+        </form>
+    }
+
+     </div> 
+</div>

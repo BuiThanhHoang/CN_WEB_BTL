@@ -1,0 +1,100 @@
+﻿
+@using BTL_WEB.Models.Entities;
+@using BTL_WEB.Models.Functions;
+
+@{
+    ViewBag.Title = "Home Page";
+    Func_DanhMuc dm = new Func_DanhMuc();
+
+    List<tbl_danhmuc> listDM = new Func_DanhMuc().DS_DanhMuc.ToList();
+    //List<tbl_danhmuc> listDM = ViewBag.listDM;
+    int n = new Func_DanhMuc().DS_DanhMuc.Count();
+
+    List<tbl_nhasanxuat> listNSX = new Func_nhasanxuat().DS_NhaSanXuat.ToList();
+    int m = new Func_nhasanxuat().DS_NhaSanXuat.Count();
+}
+<div class="content-sidebar">
+    <h2><br />Danh Mục</h2>
+    <ul>
+        @for (int i = 0; i < n; i++)
+        {
+            <li><a href="/Search/DanhMuc?danhmuc=@listDM[i].id">@listDM[i].ten</a></li>
+        }
+    </ul>
+    <br />
+    <h2>Thương Hiệu</h2>
+    <ul class="nav nav-pills nav-stacked">
+        @for (int i = 0; i < m; i++)
+        {
+            <li><a href="/Search/ThuongHieu?thuonghieu=@listNSX[i].id">@listNSX[i].ten</a></li>
+        }
+    </ul>
+    <br />
+    <div class="price-range">
+        <!--price-range-->
+        <h2>Price Range</h2> <br />
+        @*<div class="well text-center">
+            <div class="slider slider-horizontal" style="width: 187px;">
+                <div class="slider-track">
+                    <div class="slider-selection" style="left: 41.6667%; width: 33.3333%;"></div>
+                    <div class="slider-handle round left-round" style="left: 41.6667%;"></div>
+                    <div class="slider-handle round" style="left: 75%;"></div>
+                </div>
+                <div class="tooltip top" style="top: -30px; left: 76.0833px;">
+                    <div class="tooltip-arrow"></div>
+                    <div class="tooltip-inner">250 : 450</div>
+                </div>
+                <input class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" style="" type="text">
+            </div><br>
+            <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
+        </div>*@
+        <form method="get" action="/Search/PriceSearch" class="navbar-form navbar-left">
+            <div id="rangeBox">
+                <div id="sliderBox">
+                    <input type="range" id="slider0to50" step="5" min="0" max="10">
+                    <input type="range" id="slider51to100" step="5" min="11" max="100">
+                </div>
+                <div id="inputRange">
+                    <input type="number" step="1" min="0" max="10" placeholder="Min" id="price_min" name="price_min">
+                    <input type="number" step="1" min="11" max="100" placeholder="Max" id="price_max" name="price_max">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default">OK</button>
+        </form>
+        
+    </div><!--/price-range-->
+    
+</div>
+
+<script>
+    var sliderLeft = document.getElementById("slider0to50");
+    var sliderRight = document.getElementById("slider51to100");
+    var inputMin = document.getElementById("price_min");
+    var inputMax = document.getElementById("price_max");
+
+    ///value updation from input to slider
+    //function input update to slider
+    function sliderLeftInput() {//input udate slider left
+        sliderLeft.value = inputMin.value;
+    }
+    function sliderRightInput() {//input update slider right
+        sliderRight.value = (inputMax.value);//change in input max updated in slider right
+    }
+
+    //calling function on change of inputs to update in slider
+    inputMin.addEventListener("change", sliderLeftInput);
+    inputMax.addEventListener("change", sliderRightInput);
+
+
+    ///value updation from slider to input
+    //functions to update from slider to inputs
+    function inputMinSliderLeft() {//slider update inputs
+        inputMin.value = sliderLeft.value;
+    }
+    function inputMaxSliderRight() {//slider update inputs
+        inputMax.value = sliderRight.value;
+    }
+    sliderLeft.addEventListener("change", inputMinSliderLeft);
+    sliderRight.addEventListener("change", inputMaxSliderRight);
+
+</script>

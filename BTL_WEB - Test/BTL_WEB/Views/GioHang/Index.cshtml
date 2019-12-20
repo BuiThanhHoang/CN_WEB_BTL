@@ -1,0 +1,99 @@
+﻿@using BTL_WEB.Models.Entities;
+@using BTL_WEB.Models.Functions;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var iduser = ViewBag.iduser;
+    Func_ChiTietDonHang tinhdonhang = new Func_ChiTietDonHang();
+    Func_SanPham tinhsanpham = new Func_SanPham();
+    List<tbl_chitietdonhang> donhang = tinhdonhang.getSanPhamGioHang(iduser);
+}
+
+@*<link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+
+<script src="~/Content/js/jquery.min.js"></script>*@
+
+<script src="~/Content/js/jsgiohang.js"></script>
+
+
+<body>
+    <div class="container">
+        <table id="cart" class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th style="width:50%">Tên sản phẩm</th>
+                    <th style="width:10%">Giá</th>
+                    <th style="width:8%">Số lượng</th>
+                    <th style="width:22%" class="text-center">Thành tiền</th>
+                    <th style="width:10%"> </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{
+                    var stt = 0;
+                    var tongtiengiohang = 0;
+                }
+
+                @foreach (tbl_chitietdonhang chitiethang in donhang)
+                { 
+                    stt += 1;
+
+                    tbl_sanpham sanpham = tinhsanpham.FindEntity(chitiethang.id_sp);
+                    int tongtien = (int)sanpham.gia * (int)chitiethang.soluong; 
+                    tongtiengiohang += tongtien;
+                    <tr>
+                        <td data-th="Product">       
+                            <div class="row">
+                                <div class="col-sm-2 hidden-xs">
+                                    <img src="~/Content/images/@tinhsanpham.getImg(sanpham.id)[0]" alt="@sanpham.ten" class="img-responsive" width="100">
+                                </div>
+                                <div class="col-sm-10">
+                                    <h4 class="nomargin">@sanpham.ten</h4>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-th="Price">@sanpham.gia đ</td>
+                        <td data-th="Quantity">
+                            <input class="form-control text-center" id="soluongsanpham_@stt" value="@chitiethang.soluong" type="number" onchange="tinhtientheosoluong(@sanpham.gia, @stt, @donhang.Count, @sanpham.id, @iduser)">
+                        </td>
+
+                        <td data-th="Subtotal" id="tongtien_@stt" class="text-center">@tongtien đ</td>
+                        <td class="actions" data-th="">
+                            <button class="btn btn-info btn-sm">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deletegiohang(@chitiethang.id)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr class="visible-xs">
+                    <td class="text-center">
+                        <strong>Tổng </strong>
+                        <strong class="tongtiengiohang">@tongtiengiohang</strong>
+                        <strong>đ</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/Home/Index" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
+                    </td>
+                    <td colspan="2" class="hidden-xs">
+                        <strong>Tổng </strong>
+                        <strong class="tongtiengiohang">@tongtiengiohang</strong>
+                        <strong>đ</strong>
+                    </td>
+
+                    <td>
+                        <a href="~/GioHang/NecessaryInfomation " class="btn btn-success btn-block">Thanh toán <i class="fa fa-angle-right"></i></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</body>
